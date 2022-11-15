@@ -25,14 +25,17 @@ import io.hikarilan.tishinenghacker.ui.theme.TiShiNengHackerRTheme
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
 
 class MainActivity : ComponentActivity() {
 
     private val pendingDistance = mutableStateOf("1000.0") // 1000.0
     private val pendingStep = mutableStateOf("1428") // 1428
+    private val pendingTime = mutableStateOf("3600") // 3600
 
     private val distance = mutableStateOf(pendingDistance.value.toFloat())
     private val step = mutableStateOf(pendingStep.value.toInt())
+    private val time = mutableStateOf(pendingTime.value.toLong())
     private val acceptedTerms = mutableStateOf(false)
     private val isRunning = mutableStateOf(false)
     private var runningThread: Thread? = null
@@ -43,10 +46,8 @@ class MainActivity : ComponentActivity() {
         while (true) {
             if (System.currentTimeMillis() % 5 != 0L) continue
             sendBroadcast(Intent().apply {
-                this.action = "ADD_START_POINT"
-                this.putExtra(
-                    "startTime", System.currentTimeMillis() - 6000000L
-                )
+                this.action = "TIME_CHANGE"
+                this.putExtra("countTime", time.value)
             })
             sendBroadcast(Intent().apply {
                 this.action = "ADD_LINE"
@@ -98,7 +99,7 @@ class MainActivity : ComponentActivity() {
     fun TopAppBar() {
         CenterAlignedTopAppBar(
             title = {
-                Text(text = "TiShiNengHackerR")
+                Text(text = "TiShiNengHackerR, Version 2.1")
             }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = Purple80
             ), navigationIcon = {
@@ -177,6 +178,26 @@ class MainActivity : ComponentActivity() {
                 )
             }
             Column(
+                modifier = Modifier.padding(vertical = 3.dp)
+            ) {
+                Text(text = "第三步：设置本次跑步总时长")
+                OutlinedTextField(
+                    value = pendingTime.value,
+                    onValueChange = {
+                        pendingTime.value = it
+                        if (checkPendingTime(it)) {
+                            time.value = it.toDouble().roundToLong()
+                        }
+                    },
+                    singleLine = true,
+                    placeholder = { Text(text = "3600") },
+                    supportingText = { Text(text = "输入本次跑步总时长，单位秒") },
+                    label = { Text(text = "本次跑步时长") },
+                    isError = !checkPendingTime(pendingTime.value),
+                    enabled = !isRunning.value
+                )
+            }
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 3.dp)
@@ -186,7 +207,7 @@ class MainActivity : ComponentActivity() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = "第三步：勾选以同意我们的免责声明")
+                    Text(text = "第四步：勾选以同意我们的免责声明")
                     Switch(
                         checked = acceptedTerms.value,
                         onCheckedChange = { acceptedTerms.value = true },
@@ -195,7 +216,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
             Text(text = "第四步：点击下方的运行 Hacker 按钮，然后开始跑步")
-            Text(text = "概览： 距离：${distance.value}M，步数：${step.value}步", color = PurpleGrey40)
+            Text(
+                text = "概览： 距离：${distance.value}M，步数：${step.value}步，时长：${time.value}秒",
+                color = PurpleGrey40
+            )
             Text(text = "运行状态：" + if (isRunning.value) "运行中" else "未在运行", color = PurpleGrey40)
         }
     }
@@ -269,3 +293,5 @@ class MainActivity : ComponentActivity() {
 fun checkPendingDistance(distance: String) = distance.toFloatOrNull() != null
 
 fun checkPendingStep(step: String) = step.toIntOrNull() != null
+
+fun checkPendingTime(time: String) = time.toDoubleOrNull() != null
