@@ -202,10 +202,15 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun Footer() {
-        Text(text = "TiShiNengHackerR 是基于 GNU General Public License v3.0 协议许可的自由软件。使用，修改，再分发该软件（及其源代码）须按照 GPLv3 协议要求进行。")
-        Spacer(modifier = Modifier.padding(2.dp))
-        Text(
-            text = """
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(text = "TiShiNengHackerR 是基于 GNU General Public License v3.0 协议许可的自由软件。使用，修改，再分发该软件（及其源代码）须按照 GPLv3 协议要求进行。")
+            Spacer(modifier = Modifier.padding(2.dp))
+            Text(
+                text = """
     TiShiNengHackerR
     Copyright (C) 2022  HikariLan
     This program is free software: you can redistribute it and/or modify
@@ -221,16 +226,14 @@ class MainActivity : ComponentActivity() {
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
         """.trimIndent(),
-            fontStyle = FontStyle.Italic,
-            modifier = Modifier
-                .heightIn(max = 100.dp)
-                .verticalScroll(rememberScrollState())
-        )
-        Spacer(modifier = Modifier.padding(1.dp))
-        Text(
-            text = "免责声明：TiShiNengHackerR 仅用作学习和研究用途，任何滥用行为与该软件作者无关。使用本软件即代表您同意自愿承担使用该软件造成的一切可能的后果。",
-            color = Color.Red
-        )
+                fontStyle = FontStyle.Italic
+            )
+            Spacer(modifier = Modifier.padding(1.dp))
+            Text(
+                text = "免责声明：TiShiNengHackerR 仅用作学习和研究用途，任何滥用行为与该软件作者无关。使用本软件即代表您同意自愿承担使用该软件造成的一切可能的后果。",
+                color = Color.Red
+            )
+        }
     }
 
     @OptIn(DelicateCoroutinesApi::class)
