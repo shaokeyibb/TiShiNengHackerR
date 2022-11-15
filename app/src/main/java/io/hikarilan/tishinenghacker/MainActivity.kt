@@ -189,7 +189,7 @@ class MainActivity : ComponentActivity() {
                     Text(text = "第三步：勾选以同意我们的免责声明")
                     Switch(
                         checked = acceptedTerms.value,
-                        onCheckedChange = { acceptedTerms.value = it },
+                        onCheckedChange = { acceptedTerms.value = true },
                         enabled = !isRunning.value
                     )
                 }
