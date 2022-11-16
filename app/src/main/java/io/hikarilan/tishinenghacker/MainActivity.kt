@@ -1,14 +1,17 @@
 package io.hikarilan.tishinenghacker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -232,7 +235,12 @@ class MainActivity : ComponentActivity() {
                 .verticalScroll(rememberScrollState())
         ) {
             Text(text = "TiShiNengHackerR 是基于 GNU General Public License v3.0 协议许可的自由软件。使用，修改，再分发该软件（及其源代码）须按照 GPLv3 协议要求进行。")
-            Spacer(modifier = Modifier.padding(2.dp))
+            Spacer(modifier = Modifier.padding(3.dp))
+            Text(
+                text = "免责声明：TiShiNengHackerR 仅用作学习和研究用途，任何滥用行为与该软件作者无关。使用本软件即代表您同意自愿承担使用该软件造成的一切可能的后果。",
+                color = Color.Red
+            )
+            Spacer(modifier = Modifier.padding(3.dp))
             Text(
                 text = """
     TiShiNengHackerR
@@ -251,11 +259,6 @@ class MainActivity : ComponentActivity() {
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
         """.trimIndent(),
                 fontStyle = FontStyle.Italic
-            )
-            Spacer(modifier = Modifier.padding(1.dp))
-            Text(
-                text = "免责声明：TiShiNengHackerR 仅用作学习和研究用途，任何滥用行为与该软件作者无关。使用本软件即代表您同意自愿承担使用该软件造成的一切可能的后果。",
-                color = Color.Red
             )
         }
     }
