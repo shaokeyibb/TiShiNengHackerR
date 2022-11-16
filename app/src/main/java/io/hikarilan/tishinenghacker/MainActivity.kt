@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -108,6 +107,18 @@ class MainActivity : ComponentActivity() {
             ), navigationIcon = {
                 if (isRunning.value) {
                     CircularProgressIndicator()
+                }
+            }, actions = {
+                IconButton(onClick = {
+                    startActivity(Intent().apply {
+                        action = "android.intent.action.VIEW"
+                        data = Uri.parse("https://github.com/shaokeyibb/TishiNengHackerR")
+                    })
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Info,
+                        contentDescription = "GitHub"
+                    )
                 }
             }
         )
