@@ -215,7 +215,7 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
-            Text(text = "第四步：点击下方的运行 Hacker 按钮，然后开始跑步")
+            Text(text = "第五步：点击下方的运行 Hacker 按钮，然后开始跑步")
             Text(
                 text = "概览： 距离：${distance.value}M，步数：${step.value}步，时长：${time.value}秒",
                 color = PurpleGrey40
