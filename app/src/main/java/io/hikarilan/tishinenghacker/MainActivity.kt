@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
     fun TopAppBar() {
         CenterAlignedTopAppBar(
             title = {
-                Text(text = "TiShiNengHackerR, Version 2.1")
+                Text(text = "TiShiNengHackerR")
             }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                 containerColor = Purple80
             ), navigationIcon = {
